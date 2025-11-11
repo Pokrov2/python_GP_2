@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import time
 
-output_file = "only_asdasdasaсссссвsd.csv"
+output_file = "hh_final_merged.csv"
 flag = False
 cities = {
     1: "Москва",
