@@ -1,0 +1,35 @@
+Тут представлены основные моменты парсинга SimplyHired.com. Например,структура данных и CSS-селекторы.
+
+Представление вакансии на SimplyHired:
+- Заголовок: h2 или [data-testid='searchSerpJobTitle']
+- Компания: [data-testid='companyName']
+- Локация: [data-testid='searchSerpJobLocation'].
+- Зарплата: [data-testid='searchSerpJobSalary'] или в деталях вакансии
+- Дата публикации: [data-testid='searchSerpJobDateStamp'] или [class*='date']
+- Ссылка: [data-testid='searchSerpJobTitle'] или h2 a
+- Описание: [data-testid='searchSerpJobSnippet'] или [class*='description']
+
+Основные CSS-селекторы:
+  [data-testid='searchSerpJob'] - карточка вакансии
+  [data-testid='searchSerpJobTitle'] - заголовок вакансии
+  [data-testid='companyName'] - название компании
+  [data-testid='searchSerpJobLocation'] - локация
+  [data-testid='searchSerpJobSalary'] - зарплата
+  [data-testid='searchSerpJobDateStamp'] - дата публикации
+  [data-testid='searchSerpJobSnippet'] - описание/сниппет
+  [data-testid='viewJobBodyJobCompensation'] - зарплата в деталях вакансии
+
+Примеры обработки данных:
+- Зарплата: извлекается через extract_salary_with_period()
+- Локация: обрабатывается через extract_location() и extract_work_format()
+- Дата: конвертируется через convert_simplyhired_date()
+- Навыки: извлекаются через extract_qualifications()
+
+Структура данных в результате:
+  Title, Company, Location, Work_Format, Salary, URL, Posted_Date, Qualifications, Search_Query,Parsing_Date
+
+Обработка ошибок:
+  TimeoutException - таймаут загрузки страницы
+  ElementNotFound - элемент не найден
+  Общие исключения - логируются и продолжают работу
+
