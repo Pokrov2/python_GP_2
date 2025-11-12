@@ -184,7 +184,7 @@ def parse_single_query(q, num=100):
     logger.info(f"Начало парсинга запроса: {q}")
     d.get(f"https://www.simplyhired.com/search?q={quote(q)}")
     time.sleep(3)
-    while len(data)<num and pg<=50:
+    while len(data)<num and pg<=300:
         try:
             WebDriverWait(d,10).until(EC.presence_of_element_located((By.CSS_SELECTOR,"[data-testid='searchSerpJob'],.SerpJob,.card")))
             jobs = d.find_elements(By.CSS_SELECTOR,"[data-testid='searchSerpJob'],.SerpJob,.card")
@@ -264,12 +264,34 @@ def save_with_statistics(df, f):
     logger.info(f"Данные сохранены в файл: {f}")
 
 
-SEARCH_QUERIES=['ai developer']
+SEARCH_QUERIES=['data scientist', 'data analyst', 'data engineer',
+    'data analyst', 'data engineer', 'machine learning',
+    'machine learning', 'ml engineer', 'AI developer',
+    'artificial intelligence', 'neural networks', 'computer vision',
+    'big data', 'sql analyst', 'bi analyst', 'product analyst',
+    'junior data analyst', 'middle data analyst',
+    'senior data analyst', 'junior data engineer',
+    'middle data engineer', 'senior data engineer',
+    'python developer', 'python developer',
+    'junior python developer', 'middle python developer',
+    'senior python developer', 'backend developer',
+    'frontend developer', 'fullstack developer', 'java developer',
+    'c# developer', 'c++ developer', 'javascript developer',
+    'go developer', 'golang developer', 'kotlin developer',
+    'system administrator', 'CRM', 'CRM programmer',
+    'CRM developer', 'junior CRM', 'middle CRM', 'senior CRM',
+    'junior data analyst', 'backend developer', 'backend developer',
+    'javascript developer', 'javascript developer',
+    'middle system administrator', 'c++ developer',
+    'middle frontend developer', 'middle c++ developer',
+    'kotlin developer', 'senior backend developer',
+    'junior system administrator', 'senior system administrator',
+    'middle python developer']
 
 if __name__=="__main__":
     start=time.time()
     logger.info("=== ЗАПУСК СКРИПТА ===")
-    df=parse_multiple_queries(SEARCH_QUERIES,50)
+    df=parse_multiple_queries(SEARCH_QUERIES,300)
     if len(df)>0:
         fn=f"vacancies_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
         save_with_statistics(df,fn)
